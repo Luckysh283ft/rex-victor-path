@@ -11,10 +11,14 @@ import {
   Grid3X3,
   Calculator,
   BookOpen,
-  HelpCircle
+  HelpCircle,
+  Bot
 } from 'lucide-react';
 import { QuestionCard } from './QuestionCard';
 import { QuestionPalette } from './QuestionPalette';
+import { TestResults } from './TestResults';
+import { SolutionViewer } from './SolutionViewer';
+import { AIAssistant } from '../ai/AIAssistant';
 import { Timer } from '@/components/ui/timer';
 import { ProgressIndicator } from '@/components/ui/progress-indicator';
 import { useTest } from '@/contexts/TestContext';
@@ -30,6 +34,8 @@ export const TestInterface: React.FC = () => {
     answers, 
     timeRemaining,
     isTestActive,
+    isTestCompleted,
+    currentTest,
     saveAnswer,
     clearAnswer,
     nextQuestion,
@@ -46,6 +52,9 @@ export const TestInterface: React.FC = () => {
   const [showCalculator, setShowCalculator] = useState(false);
   const [showFormulas, setShowFormulas] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+  const [showSolutions, setShowSolutions] = useState(false);
+  const [showAIAssistant, setShowAIAssistant] = useState(false);
 
   const progressStats = getProgressStats();
 
@@ -79,6 +88,7 @@ export const TestInterface: React.FC = () => {
     });
     // In a real app, you'd show a confirmation dialog
     submitTest();
+    setShowResults(true);
   };
 
   const handlePauseResume = () => {
@@ -92,6 +102,31 @@ export const TestInterface: React.FC = () => {
   };
 
   const selectedAnswer = answers[currentQuestion.id];
+
+  // Show results if test is completed
+  if (isTestCompleted || showResults) {
+    if (showSolutions && currentTest) {
+      return (
+        <SolutionViewer
+          questions={questions}
+          testAttempt={currentTest}
+          onClose={() => setShowSolutions(false)}
+        />
+      );
+    }
+    
+    if (currentTest) {
+      return (
+        <TestResults
+          testAttempt={currentTest}
+          questions={questions}
+          onReturnToDashboard={() => window.location.reload()}
+          onViewSolutions={() => setShowSolutions(true)}
+          onRestartTest={() => window.location.reload()}
+        />
+      );
+    }
+  }
 
   return (
     <div className={cn(
@@ -129,6 +164,16 @@ export const TestInterface: React.FC = () => {
               >
                 <BookOpen className="h-4 w-4 mr-2" />
                 {t('formulas', 'Formulas', 'सूत्र')}
+              </Button>
+
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowAIAssistant(!showAIAssistant)}
+                className="hidden md:flex"
+              >
+                <Bot className="h-4 w-4 mr-2" />
+                {t('aiHelp', 'AI Help', 'AI सहायता')}
               </Button>
 
               <Button
@@ -279,6 +324,13 @@ export const TestInterface: React.FC = () => {
           className="fixed inset-0 z-50"
         />
       )}
+
+      {/* AI Assistant */}
+      <AIAssistant
+        currentQuestion={currentQuestion}
+        isOpen={showAIAssistant}
+        onToggle={() => setShowAIAssistant(!showAIAssistant)}
+      />
     </div>
   );
 };
