@@ -1,6 +1,6 @@
 import { Question } from '@/types';
 
-// Rex JEE Mock Test - Comprehensive Question Database (1500+ Questions)
+// Rex JEE Mock Test - Updated Question Database
 export const questionsDatabase: Question[] = [
   // PHYSICS QUESTIONS
   {
@@ -11,6 +11,8 @@ export const questionsDatabase: Question[] = [
     topicHindi: 'गतिकी',
     difficulty: 'Easy',
     difficultyHindi: 'आसान',
+    questionType: 'single-correct',
+    questionTypeHindi: 'एकल सही',
     questionText: 'A car travels 60 km in the first hour, 40 km in the second hour, and 20 km in the third hour. What is the average speed of the car?',
     questionTextHindi: 'एक कार पहले घंटे में 60 किमी, दूसरे घंटे में 40 किमी, और तीसरे घंटे में 20 किमी की यात्रा करती है। कार की औसत चाल क्या है?',
     options: ['30 km/h', '40 km/h', '45 km/h', '50 km/h'],
@@ -21,7 +23,9 @@ export const questionsDatabase: Question[] = [
     formula: 'Average Speed = Total Distance / Total Time',
     formulaHindi: 'औसत चाल = कुल दूरी / कुल समय',
     marks: 4,
-    timeEstimate: 90
+    negativeMarks: -1,
+    timeEstimate: 90,
+    chapters: ['Kinematics']
   },
   {
     id: 'phy_002',
@@ -29,8 +33,10 @@ export const questionsDatabase: Question[] = [
     subjectHindi: 'भौतिकी',
     topic: 'Work and Energy',
     topicHindi: 'कार्य और ऊर्जा',
-    difficulty: 'Medium',
+    difficulty: 'Moderate',
     difficultyHindi: 'मध्यम',
+    questionType: 'single-correct',
+    questionTypeHindi: 'एकल सही',
     questionText: 'A 2 kg object is lifted to a height of 10 m. If g = 10 m/s², what is the gravitational potential energy gained?',
     questionTextHindi: 'एक 2 किग्रा का वस्तु 10 मीटर की ऊंचाई तक उठाया जाता है। यदि g = 10 m/s² है, तो गुरुत्वाकर्षण स्थितिज ऊर्जा में वृद्धि क्या है?',
     options: ['100 J', '200 J', '20 J', '400 J'],
@@ -41,7 +47,9 @@ export const questionsDatabase: Question[] = [
     formula: 'PE = mgh',
     formulaHindi: 'स्थितिज ऊर्जा = mgh',
     marks: 4,
-    timeEstimate: 120
+    negativeMarks: -1,
+    timeEstimate: 120,
+    chapters: ['Work and Energy']
   },
   {
     id: 'phy_003',
@@ -51,6 +59,8 @@ export const questionsDatabase: Question[] = [
     topicHindi: 'तरंग प्रकाशिकी',
     difficulty: 'Hard',
     difficultyHindi: 'कठिन',
+    questionType: 'single-correct',
+    questionTypeHindi: 'एकल सही',
     questionText: 'In Young\'s double slit experiment, if the distance between slits is 1 mm and screen distance is 1 m, what is the fringe width for λ = 600 nm?',
     questionTextHindi: 'यंग के द्विझिरी प्रयोग में, यदि झिरियों के बीच की दूरी 1 मिमी है और पर्दे की दूरी 1 मीटर है, तो λ = 600 nm के लिए फ्रिंज चौड़ाई क्या है?',
     options: ['0.6 mm', '0.3 mm', '1.2 mm', '0.9 mm'],
@@ -61,7 +71,9 @@ export const questionsDatabase: Question[] = [
     formula: 'β = λD/d',
     formulaHindi: 'β = λD/d',
     marks: 4,
-    timeEstimate: 180
+    negativeMarks: -1,
+    timeEstimate: 180,
+    chapters: ['Wave Optics']
   },
 
   // CHEMISTRY QUESTIONS
@@ -73,6 +85,8 @@ export const questionsDatabase: Question[] = [
     topicHindi: 'परमाणु संरचना',
     difficulty: 'Easy',
     difficultyHindi: 'आसान',
+    questionType: 'single-correct',
+    questionTypeHindi: 'एकल सही',
     questionText: 'What is the maximum number of electrons that can be accommodated in the M shell?',
     questionTextHindi: 'M कोश में अधिकतम कितने इलेक्ट्रॉन समा सकते हैं?',
     options: ['8', '18', '32', '2'],
@@ -83,7 +97,9 @@ export const questionsDatabase: Question[] = [
     formula: 'Maximum electrons in shell = 2n²',
     formulaHindi: 'कोश में अधिकतम इलेक्ट्रॉन = 2n²',
     marks: 4,
-    timeEstimate: 60
+    negativeMarks: -1,
+    timeEstimate: 60,
+    chapters: ['Atomic Structure']
   },
   {
     id: 'chem_002',
@@ -91,8 +107,10 @@ export const questionsDatabase: Question[] = [
     subjectHindi: 'रसायन विज्ञान',
     topic: 'Chemical Bonding',
     topicHindi: 'रासायनिक बंधन',
-    difficulty: 'Medium',
+    difficulty: 'Moderate',
     difficultyHindi: 'मध्यम',
+    questionType: 'single-correct',
+    questionTypeHindi: 'एकल सही',
     questionText: 'What is the hybridization of carbon in methane (CH₄)?',
     questionTextHindi: 'मीथेन (CH₄) में कार्बन का संकरण क्या है?',
     options: ['sp', 'sp²', 'sp³', 'sp³d'],
@@ -103,7 +121,9 @@ export const questionsDatabase: Question[] = [
     formula: 'sp³ hybridization = 1s + 3p orbitals',
     formulaHindi: 'sp³ संकरण = 1s + 3p कक्षक',
     marks: 4,
-    timeEstimate: 90
+    negativeMarks: -1,
+    timeEstimate: 90,
+    chapters: ['Chemical Bonding']
   },
   {
     id: 'chem_003',
@@ -113,6 +133,8 @@ export const questionsDatabase: Question[] = [
     topicHindi: 'ऊष्मागतिकी',
     difficulty: 'Hard',
     difficultyHindi: 'कठिन',
+    questionType: 'single-correct',
+    questionTypeHindi: 'एकल सही',
     questionText: 'Calculate the entropy change when 1 mole of ice at 0°C melts to water at 0°C. (ΔH_fusion = 6.01 kJ/mol)',
     questionTextHindi: 'जब 0°C पर 1 मोल बर्फ 0°C पर पानी में पिघलती है तो एन्ट्रॉपी परिवर्तन की गणना करें। (ΔH_संलयन = 6.01 kJ/mol)',
     options: ['22.0 J/K', '18.5 J/K', '25.2 J/K', '15.8 J/K'],
@@ -123,7 +145,9 @@ export const questionsDatabase: Question[] = [
     formula: 'ΔS = ΔH/T',
     formulaHindi: 'ΔS = ΔH/T',
     marks: 4,
-    timeEstimate: 150
+    negativeMarks: -1,
+    timeEstimate: 150,
+    chapters: ['Thermodynamics']
   },
 
   // MATHEMATICS QUESTIONS
@@ -135,6 +159,8 @@ export const questionsDatabase: Question[] = [
     topicHindi: 'द्विघात समीकरण',
     difficulty: 'Easy',
     difficultyHindi: 'आसान',
+    questionType: 'single-correct',
+    questionTypeHindi: 'एकल सही',
     questionText: 'Find the discriminant of the quadratic equation 2x² - 5x + 3 = 0',
     questionTextHindi: 'द्विघात समीकरण 2x² - 5x + 3 = 0 का विविक्तकर ज्ञात करें',
     options: ['1', '25', '24', '7'],
@@ -145,7 +171,9 @@ export const questionsDatabase: Question[] = [
     formula: 'Discriminant = b² - 4ac',
     formulaHindi: 'विविक्तकर = b² - 4ac',
     marks: 4,
-    timeEstimate: 75
+    negativeMarks: -1,
+    timeEstimate: 75,
+    chapters: ['Quadratic Equations']
   },
   {
     id: 'math_002',
@@ -153,8 +181,10 @@ export const questionsDatabase: Question[] = [
     subjectHindi: 'गणित',
     topic: 'Calculus',
     topicHindi: 'कलन',
-    difficulty: 'Medium',
+    difficulty: 'Moderate',
     difficultyHindi: 'मध्यम',
+    questionType: 'single-correct',
+    questionTypeHindi: 'एकल सही',
     questionText: 'Find the derivative of f(x) = x³ + 2x² - 5x + 1',
     questionTextHindi: 'f(x) = x³ + 2x² - 5x + 1 का अवकलज ज्ञात करें',
     options: ['3x² + 4x - 5', '3x² + 2x - 5', '3x² + 4x + 5', 'x² + 4x - 5'],
@@ -165,7 +195,9 @@ export const questionsDatabase: Question[] = [
     formula: 'd/dx(xⁿ) = nxⁿ⁻¹',
     formulaHindi: 'd/dx(xⁿ) = nxⁿ⁻¹',
     marks: 4,
-    timeEstimate: 120
+    negativeMarks: -1,
+    timeEstimate: 120,
+    chapters: ['Calculus']
   },
   {
     id: 'math_003',
@@ -175,6 +207,8 @@ export const questionsDatabase: Question[] = [
     topicHindi: 'सम्मिश्र संख्याएं',
     difficulty: 'Hard',
     difficultyHindi: 'कठिन',
+    questionType: 'single-correct',
+    questionTypeHindi: 'एकल सही',
     questionText: 'Find the principal argument of z = -1 + i√3',
     questionTextHindi: 'z = -1 + i√3 का मुख्य कोणांक ज्ञात करें',
     options: ['2π/3', 'π/3', '4π/3', '5π/6'],
@@ -185,90 +219,17 @@ export const questionsDatabase: Question[] = [
     formula: 'For z = x + iy in II quadrant: arg(z) = π - tan⁻¹(|y/x|)',
     formulaHindi: 'द्वितीय चतुर्थांश में z = x + iy के लिए: arg(z) = π - tan⁻¹(|y/x|)',
     marks: 4,
-    timeEstimate: 180
-  },
-
-  // Additional Physics Questions
-  {
-    id: 'phy_004',
-    subject: 'Physics',
-    subjectHindi: 'भौतिकी',
-    topic: 'Electricity',
-    topicHindi: 'विद्युत',
-    difficulty: 'Medium',
-    difficultyHindi: 'मध्यम',
-    questionText: 'Two resistors of 4Ω and 6Ω are connected in parallel. What is the equivalent resistance?',
-    questionTextHindi: '4Ω और 6Ω के दो प्रतिरोधक समानांतर में जुड़े हैं। तुल्य प्रतिरोध क्या है?',
-    options: ['2.4Ω', '10Ω', '5Ω', '1.2Ω'],
-    optionsHindi: ['2.4Ω', '10Ω', '5Ω', '1.2Ω'],
-    correctAnswer: 0,
-    explanation: '1/R = 1/4 + 1/6 = (6+4)/(4×6) = 10/24 = 5/12, Therefore R = 12/5 = 2.4Ω',
-    explanationHindi: '1/R = 1/4 + 1/6 = (6+4)/(4×6) = 10/24 = 5/12, अतः R = 12/5 = 2.4Ω',
-    formula: 'For parallel: 1/R = 1/R₁ + 1/R₂',
-    formulaHindi: 'समानांतर के लिए: 1/R = 1/R₁ + 1/R₂',
-    marks: 4,
-    timeEstimate: 150
-  },
-
-  // Additional Chemistry Questions
-  {
-    id: 'chem_004',
-    subject: 'Chemistry',
-    subjectHindi: 'रसायन विज्ञान',
-    topic: 'Organic Chemistry',
-    topicHindi: 'कार्बनिक रसायन',
-    difficulty: 'Medium',
-    difficultyHindi: 'मध्यम',
-    questionText: 'What is the IUPAC name of CH₃-CH(CH₃)-CH₂-CH₃?',
-    questionTextHindi: 'CH₃-CH(CH₃)-CH₂-CH₃ का IUPAC नाम क्या है?',
-    options: ['2-methylbutane', '3-methylbutane', 'pentane', '2-methylpentane'],
-    optionsHindi: ['2-मेथिलब्यूटेन', '3-मेथिलब्यूटेन', 'पेंटेन', '2-मेथिलपेंटेन'],
-    correctAnswer: 0,
-    explanation: 'Longest chain has 4 carbons (butane), methyl group at position 2, so 2-methylbutane',
-    explanationHindi: 'सबसे लंबी श्रृंखला में 4 कार्बन हैं (ब्यूटेन), स्थिति 2 पर मेथिल समूह, इसलिए 2-मेथिलब्यूटेन',
-    formula: 'IUPAC: Root + Position of substituent + substituent + suffix',
-    formulaHindi: 'IUPAC: मूल + प्रतिस्थापी की स्थिति + प्रतिस्थापी + प्रत्यय',
-    marks: 4,
-    timeEstimate: 120
-  },
-
-  // Additional Mathematics Questions
-  {
-    id: 'math_004',
-    subject: 'Mathematics',
-    subjectHindi: 'गणित',
-    topic: 'Trigonometry',
-    topicHindi: 'त्रिकोणमिति',
-    difficulty: 'Medium',
-    difficultyHindi: 'मध्यम',
-    questionText: 'If sin θ = 3/5 and θ is in the second quadrant, find cos θ',
-    questionTextHindi: 'यदि sin θ = 3/5 और θ द्वितीय चतुर्थांश में है, तो cos θ ज्ञात करें',
-    options: ['-4/5', '4/5', '-3/4', '3/4'],
-    optionsHindi: ['-4/5', '4/5', '-3/4', '3/4'],
-    correctAnswer: 0,
-    explanation: 'Using sin²θ + cos²θ = 1: cos²θ = 1 - (3/5)² = 1 - 9/25 = 16/25, so cos θ = ±4/5. In second quadrant, cos θ is negative, so cos θ = -4/5',
-    explanationHindi: 'sin²θ + cos²θ = 1 का उपयोग करते हुए: cos²θ = 1 - (3/5)² = 1 - 9/25 = 16/25, अतः cos θ = ±4/5। द्वितीय चतुर्थांश में, cos θ ऋणात्मक है, इसलिए cos θ = -4/5',
-    formula: 'sin²θ + cos²θ = 1',
-    formulaHindi: 'sin²θ + cos²θ = 1',
-    marks: 4,
-    timeEstimate: 135
+    negativeMarks: -1,
+    timeEstimate: 180,
+    chapters: ['Complex Numbers']
   }
 ];
-
-// Generate additional questions programmatically for comprehensive database
-export const generateAdditionalQuestions = (): Question[] => {
-  const additionalQuestions: Question[] = [];
-  
-  // This would contain the logic to generate more questions
-  // For now, returning the base set
-  return additionalQuestions;
-};
 
 export const getQuestionsBySubject = (subject: 'Physics' | 'Chemistry' | 'Mathematics'): Question[] => {
   return questionsDatabase.filter(q => q.subject === subject);
 };
 
-export const getQuestionsByDifficulty = (difficulty: 'Easy' | 'Medium' | 'Hard'): Question[] => {
+export const getQuestionsByDifficulty = (difficulty: 'Easy' | 'Moderate' | 'Hard' | 'Very-Hard'): Question[] => {
   return questionsDatabase.filter(q => q.difficulty === difficulty);
 };
 
@@ -278,7 +239,7 @@ export const getQuestionsByTopic = (topic: string): Question[] => {
 
 export const getRandomQuestions = (count: number, filters?: {
   subjects?: ('Physics' | 'Chemistry' | 'Mathematics')[];
-  difficulty?: ('Easy' | 'Medium' | 'Hard')[];
+  difficulty?: ('Easy' | 'Moderate' | 'Hard' | 'Very-Hard')[];
   topics?: string[];
 }): Question[] => {
   let filteredQuestions = [...questionsDatabase];

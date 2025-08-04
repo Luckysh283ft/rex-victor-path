@@ -161,6 +161,38 @@ export const testConfigurations: TestConfiguration[] = [
     negativeMarking: true,
     marksPerQuestion: 4,
     negativeMarks: -1
+  },
+  {
+    id: 'jee_advanced_paper1',
+    name: 'JEE Advanced Paper-1',
+    nameHindi: 'JEE उन्नत पेपर-1',
+    type: 'Full Test',
+    typeHindi: 'पूर्ण टेस्ट',
+    subjects: ['Physics', 'Chemistry', 'Mathematics'],
+    totalQuestions: 54,
+    duration: 180, // 3 hours
+    physicsQuestions: 18,
+    chemistryQuestions: 18,
+    mathQuestions: 18,
+    negativeMarking: true,
+    marksPerQuestion: 3, // Variable based on question type
+    negativeMarks: -1 // Variable based on question type
+  },
+  {
+    id: 'jee_advanced_paper2',
+    name: 'JEE Advanced Paper-2',
+    nameHindi: 'JEE उन्नत पेपर-2',
+    type: 'Full Test',
+    typeHindi: 'पूर्ण टेस्ट',
+    subjects: ['Physics', 'Chemistry', 'Mathematics'],
+    totalQuestions: 54,
+    duration: 180, // 3 hours
+    physicsQuestions: 18,
+    chemistryQuestions: 18,
+    mathQuestions: 18,
+    negativeMarking: true,
+    marksPerQuestion: 3, // Variable based on question type
+    negativeMarks: -1 // Variable based on question type
   }
 ];
 

@@ -6,19 +6,30 @@ export interface Question {
   subjectHindi: 'भौतिकी' | 'रसायन विज्ञान' | 'गणित';
   topic: string;
   topicHindi: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  difficultyHindi: 'आसान' | 'मध्यम' | 'कठिन';
+  difficulty: 'Easy' | 'Moderate' | 'Hard' | 'Very-Hard';
+  difficultyHindi: 'आसान' | 'मध्यम' | 'कठिन' | 'अत्यंत कठिन';
+  questionType: 'single-correct' | 'multiple-correct' | 'integer-answer' | 'matrix-match' | 'comprehension';
+  questionTypeHindi: 'एकल सही' | 'बहु सही' | 'पूर्णांक उत्तर' | 'मैट्रिक्स मिलान' | 'गद्यांश';
   questionText: string;
   questionTextHindi: string;
-  options: string[];
-  optionsHindi: string[];
-  correctAnswer: number;
+  options?: string[];
+  optionsHindi?: string[];
+  correctAnswer?: number | number[] | string;
+  matrixOptions?: {
+    listA: string[];
+    listB: string[];
+    correctMatches: Record<string, string>;
+  };
+  integerRange?: { min: number; max: number };
   explanation: string;
   explanationHindi: string;
   formula?: string;
   formulaHindi?: string;
   marks: number;
+  negativeMarks: number;
   timeEstimate: number; // in seconds
+  chapters: string[]; // Multiple chapters for integration
+  comprehensionGroup?: string; // For grouping comprehension questions
 }
 
 export interface TestConfiguration {
