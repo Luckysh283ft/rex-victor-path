@@ -230,7 +230,16 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                   {t('correctAnswer', 'Correct Answer', 'सही उत्तर')}:
                 </span>
                 <Badge className="bg-success text-success-foreground">
-                  {String.fromCharCode(65 + question.correctAnswer)} - {options[question.correctAnswer]}
+                  {question.questionType === 'single-correct' && typeof question.correctAnswer === 'number' 
+                    ? `${String.fromCharCode(65 + question.correctAnswer)} - ${options[question.correctAnswer]}`
+                    : question.questionType === 'multiple-correct' && Array.isArray(question.correctAnswer)
+                    ? question.correctAnswer.map(ans => String.fromCharCode(65 + ans)).join(', ')
+                    : question.questionType === 'integer-answer'
+                    ? String(question.correctAnswer)
+                    : question.questionType === 'matrix-match'
+                    ? 'Matrix matches shown'
+                    : String(question.correctAnswer)
+                  }
                 </Badge>
               </div>
             </div>
