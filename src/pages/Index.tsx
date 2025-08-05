@@ -90,7 +90,6 @@ const Index = () => {
           <Button onClick={() => setShowProgress(true)} className="mt-4">
             प्रगति देखें
           </Button>
-          </div>
         </div>
 
         {/* Quick Stats */}
