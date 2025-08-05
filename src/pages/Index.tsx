@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Header } from '@/components/layout/Header';
 import { TestCard } from '@/components/dashboard/TestCard';
 import { TestInterface } from '@/components/test/TestInterface';
+import { ProgressDashboard } from '@/components/dashboard/ProgressDashboard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +16,7 @@ import { Trophy, BookOpen, Clock, TrendingUp, Star, Zap } from 'lucide-react';
 const Index = () => {
   const { isTestActive, startTest } = useTest();
   const { language, t } = useLanguage();
+  const [showProgress, setShowProgress] = useState(false);
 
   const handleStartTest = (config: TestConfiguration) => {
     const testQuestions = getRandomQuestions(config.totalQuestions, {
@@ -25,6 +27,23 @@ const Index = () => {
 
   if (isTestActive) {
     return <TestInterface />;
+  }
+
+  if (showProgress) {
+    return (
+      <div className="min-h-screen bg-gradient-hero">
+        <Header />
+        <main className="container mx-auto px-4 py-8">
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-3xl font-bold text-primary">प्रगति डैशबोर्ड</h1>
+            <Button onClick={() => setShowProgress(false)} variant="outline">
+              वापस जाएं
+            </Button>
+          </div>
+          <ProgressDashboard />
+        </main>
+      </div>
+    );
   }
 
   return (
@@ -66,6 +85,11 @@ const Index = () => {
               <Trophy className="h-4 w-4 text-primary" />
               <span>{t('detailed', 'Detailed Analytics', 'विस्तृत विश्लेषण')}</span>
             </div>
+          </div>
+          
+          <Button onClick={() => setShowProgress(true)} className="mt-4">
+            प्रगति देखें
+          </Button>
           </div>
         </div>
 
