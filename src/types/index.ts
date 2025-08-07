@@ -52,16 +52,20 @@ export interface TestConfiguration {
 export interface TestAttempt {
   id: string;
   testConfigId: string;
-  userId: string;
+  userId?: string;
   startTime: Date;
   endTime?: Date;
-  answers: Record<string, number>;
+  answers: Record<string, any>;
   bookmarked: string[];
   visitedQuestions: string[];
   timeSpentPerQuestion: Record<string, number>;
   isCompleted: boolean;
   score?: number;
   percentile?: number;
+  questions?: Question[];
+  timeSpent?: number;
+  submittedAt?: Date | null;
+  maxScore?: number;
   subjectWiseScore?: {
     Physics: { correct: number; incorrect: number; unattempted: number; marks: number };
     Chemistry: { correct: number; incorrect: number; unattempted: number; marks: number };

@@ -21,20 +21,7 @@ const Index = () => {
 
   const handleStartTest = (paper: number) => {
     const questions = getQuestionsByPaper(paper);
-    if (questions.length < 54) {
-      // For demo, fill with available questions
-      const availableQuestions = jeeAdvancedQuestions.filter(q => q.paper === paper);
-      const filledQuestions = [...availableQuestions];
-      
-      // Pad with repeated questions if needed for demo
-      while (filledQuestions.length < 54) {
-        filledQuestions.push(...availableQuestions.slice(0, 54 - filledQuestions.length));
-      }
-      
-      setTestQuestions(filledQuestions.slice(0, 54));
-    } else {
-      setTestQuestions(questions);
-    }
+    setTestQuestions(questions);
     setSelectedPaper(paper);
     setCurrentView('test');
     
@@ -51,7 +38,7 @@ const Index = () => {
     
     toast({
       title: "टेस्ट पूर्ण!",
-      description: `आपका स्कोर: ${result.score}/${result.maxScore} (${result.percentage.toFixed(1)}%)`,
+      description: `आपका स्कोर: ${result.totalScore}/${result.maxScore} (${result.percentage.toFixed(1)}%)`,
     });
   };
 

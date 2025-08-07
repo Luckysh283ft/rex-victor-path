@@ -56,7 +56,7 @@ export const MockTestEngine: React.FC<MockTestEngineProps> = ({
   const saveProgress = useCallback(() => {
     const testAttempt: TestAttempt = {
       id: `test_${Date.now()}`,
-      testId: testTitle,
+      testConfigId: testTitle,
       questions,
       answers,
       timeSpent: (duration * 60) - timeRemaining,
@@ -64,7 +64,10 @@ export const MockTestEngine: React.FC<MockTestEngineProps> = ({
       submittedAt: null,
       score: 0,
       maxScore: questions.reduce((sum, q) => sum + (q.marks || 3), 0),
-      isCompleted: false
+      isCompleted: false,
+      bookmarked: [],
+      visitedQuestions: [],
+      timeSpentPerQuestion: {}
     };
     
     localStorage.setItem('currentTest', JSON.stringify(testAttempt));
@@ -223,12 +226,12 @@ export const MockTestEngine: React.FC<MockTestEngineProps> = ({
       } else {
         let isCorrect = false;
         
-        if (question.type === 'multiple' && Array.isArray(question.correctAnswer)) {
+        if (question.questionType === 'multiple-correct' && Array.isArray(question.correctAnswer)) {
           isCorrect = Array.isArray(userAnswer) && 
-                     userAnswer.length === question.correctAnswer.length &&
-                     userAnswer.every(ans => question.correctAnswer.includes(ans));
-        } else if (question.type === 'integer') {
-          isCorrect = parseInt(userAnswer) === question.correctIntegerAnswer;
+                     userAnswer.length === (question.correctAnswer as number[]).length &&
+                     userAnswer.every(ans => (question.correctAnswer as number[]).includes(ans));
+        } else if (question.questionType === 'integer-answer') {
+          isCorrect = parseInt(userAnswer) === parseInt(question.correctAnswer as string);
         } else {
           isCorrect = userAnswer === question.correctAnswer;
         }
@@ -253,20 +256,30 @@ export const MockTestEngine: React.FC<MockTestEngineProps> = ({
 
     return {
       id: `result_${Date.now()}`,
-      testId: testTitle,
-      score: Math.max(0, totalScore),
+      testAttemptId: `test_${Date.now()}`,
+      totalScore: Math.max(0, totalScore),
       maxScore,
       percentage: Math.max(0, percentage),
-      accuracy,
-      correctAnswers,
-      wrongAnswers,
-      unattempted,
-      timeSpent: (duration * 60) - timeRemaining,
-      submittedAt: new Date(),
-      subjectWiseAnalysis,
-      recommendations: generateRecommendations(subjectWiseAnalysis),
       percentile: Math.min(99, Math.max(1, percentage + Math.random() * 10)),
-      rank: Math.floor(Math.random() * 1000) + 1
+      timeTaken: Math.round(((duration * 60) - timeRemaining) / 60),
+      questionsCorrect: correctAnswers,
+      questionsIncorrect: wrongAnswers,
+      questionsUnattempted: unattempted,
+      subjectWiseAnalysis: {
+        Physics: subjectWiseAnalysis.Physics || { totalQuestions: 0, correct: 0, incorrect: 0, unattempted: 0, score: 0, maxScore: 0, percentage: 0, timeSpent: 0, accuracy: 0, topicWiseAnalysis: {} },
+        Chemistry: subjectWiseAnalysis.Chemistry || { totalQuestions: 0, correct: 0, incorrect: 0, unattempted: 0, score: 0, maxScore: 0, percentage: 0, timeSpent: 0, accuracy: 0, topicWiseAnalysis: {} },
+        Mathematics: subjectWiseAnalysis.Mathematics || { totalQuestions: 0, correct: 0, incorrect: 0, unattempted: 0, score: 0, maxScore: 0, percentage: 0, timeSpent: 0, accuracy: 0, topicWiseAnalysis: {} }
+      },
+      strengthTopics: [],
+      weaknessTopics: [],
+      timeAnalysis: {
+        averageTimePerQuestion: Math.round(((duration * 60) - timeRemaining) / questions.length),
+        fastestQuestion: 30,
+        slowestQuestion: 300,
+        timeManagement: percentage > 80 ? 'Excellent' : percentage > 60 ? 'Good' : percentage > 40 ? 'Average' : 'Poor'
+      },
+      recommendations: generateRecommendations(subjectWiseAnalysis),
+      recommendationsHindi: generateRecommendations(subjectWiseAnalysis)
     };
   };
 
@@ -307,7 +320,7 @@ export const MockTestEngine: React.FC<MockTestEngineProps> = ({
     
     toast({
       title: "टेस्ट सफलतापूर्वक जमा किया गया",
-      description: `आपका स्कोर: ${result.score}/${result.maxScore}`,
+      description: `आपका स्कोर: ${result.totalScore}/${result.maxScore}`,
     });
   };
 
@@ -347,21 +360,24 @@ export const MockTestEngine: React.FC<MockTestEngineProps> = ({
           <TestResults
             testAttempt={{
               id: testResult.id,
-              testId: testResult.testId,
+              testConfigId: 'mock-test',
               questions,
               answers,
-              timeSpent: testResult.timeSpent,
+              timeSpent: testResult.timeTaken * 60,
               startTime: new Date(),
-              submittedAt: testResult.submittedAt,
-              score: testResult.score,
+              submittedAt: new Date(),
+              score: testResult.totalScore,
               maxScore: testResult.maxScore,
-              isCompleted: true
+              isCompleted: true,
+              bookmarked: [],
+              visitedQuestions: [],
+              timeSpentPerQuestion: {},
+              endTime: new Date()
             }}
             questions={questions}
-            onBackToDashboard={onExit}
-            onRetakeTest={() => window.location.reload()}
-            onViewAnswerKey={() => setShowAnswerKey(true)}
-            onViewSolutions={() => {}}
+            onReturnToDashboard={onExit}
+            onRestartTest={() => window.location.reload()}
+            onViewSolutions={() => setShowAnswerKey(true)}
           />
           
           {showAnswerKey && (
@@ -371,15 +387,18 @@ export const MockTestEngine: React.FC<MockTestEngineProps> = ({
               questions={questions}
               testAttempt={{
                 id: testResult.id,
-                testId: testResult.testId,
+                testConfigId: 'mock-test',
                 questions,
                 answers,
-                timeSpent: testResult.timeSpent,
+                timeSpent: testResult.timeTaken * 60,
                 startTime: new Date(),
-                submittedAt: testResult.submittedAt,
-                score: testResult.score,
+                submittedAt: new Date(),
+                score: testResult.totalScore,
                 maxScore: testResult.maxScore,
-                isCompleted: true
+                isCompleted: true,
+                bookmarked: [],
+                visitedQuestions: [],
+                timeSpentPerQuestion: {}
               }}
               onViewSolution={() => {}}
             />
