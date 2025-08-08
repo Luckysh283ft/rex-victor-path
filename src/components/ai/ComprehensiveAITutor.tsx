@@ -446,7 +446,7 @@ export const ComprehensiveAITutor: React.FC<ComprehensiveAITutorProps> = ({
   const [isProcessing, setIsProcessing] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<any>(null);
   const speechSynthesisRef = useRef<SpeechSynthesis | null>(null);
   const { toast } = useToast();
 

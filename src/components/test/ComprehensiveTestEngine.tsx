@@ -623,15 +623,33 @@ export const ComprehensiveTestEngine: React.FC<ComprehensiveTestEngineProps> = (
 
   // Show results if test is submitted
   if (showResults && testResult) {
+    // Construct a TestAttempt for TestResults component
+    const constructedAttempt: TestAttempt = {
+      id: testResult.testAttemptId,
+      testConfigId: testTitle,
+      startTime: new Date(Date.now() - ((duration * 60 - timeRemaining) * 1000)),
+      endTime: new Date(),
+      answers,
+      bookmarked: Object.entries(questionStatuses).filter(([_, s]) => s.marked).map(([id]) => id),
+      visitedQuestions: Object.entries(questionStatuses).filter(([_, s]) => s.visited).map(([id]) => id),
+      timeSpentPerQuestion: Object.fromEntries(Object.entries(questionStatuses).map(([id, s]) => [id, s.timeTaken])),
+      isCompleted: true,
+      score: testResult.totalScore,
+      percentile: testResult.percentile,
+      questions,
+      timeSpent: (duration * 60) - timeRemaining,
+      submittedAt: new Date(),
+      maxScore: testResult.maxScore,
+    };
+
     return (
       <div className="min-h-screen bg-gradient-hero p-4">
         <TestResults 
-          result={testResult}
+          testAttempt={constructedAttempt}
           questions={questions}
-          answers={answers}
-          onViewAnswerKey={() => setShowAnswerKey(true)}
-          onRetakeTest={onExit}
-          onDownloadPDF={generateAnswerKeyPDF}
+          onViewSolutions={() => setShowAnswerKey(true)}
+          onRestartTest={onExit}
+          onReturnToDashboard={onExit}
         />
         
         {showAnswerKey && (
@@ -803,12 +821,9 @@ export const ComprehensiveTestEngine: React.FC<ComprehensiveTestEngineProps> = (
             <QuestionCard
               question={currentQuestion}
               questionNumber={currentQuestionIndex + 1}
-              totalQuestions={questions.length}
-              selectedAnswer={answers[currentQuestion.id]}
-              onAnswerChange={(answer) => handleSaveAnswer(currentQuestion.id, answer)}
-              onMarkForReview={() => handleMarkForReview(currentQuestion.id)}
-              isMarked={questionStatuses[currentQuestion.id]?.marked || false}
-              timeSpent={questionStatuses[currentQuestion.id]?.timeTaken || 0}
+              selectedAnswer={typeof answers[currentQuestion.id] === 'number' ? answers[currentQuestion.id] : undefined}
+              onAnswerSelect={(index) => handleSaveAnswer(currentQuestion.id, index)}
+              onClearAnswer={() => handleSaveAnswer(currentQuestion.id, undefined)}
             />
             
             {/* Navigation */}
