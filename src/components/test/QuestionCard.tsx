@@ -14,7 +14,6 @@ import {
 } from 'lucide-react';
 import { Question } from '@/types';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useTest } from '@/contexts/TestContext';
 import { cn } from '@/lib/utils';
 
 interface QuestionCardProps {
@@ -23,6 +22,8 @@ interface QuestionCardProps {
   selectedAnswer?: number;
   onAnswerSelect: (answer: number) => void;
   onClearAnswer: () => void;
+  isBookmarked?: boolean;
+  onToggleBookmark?: () => void;
   className?: string;
 }
 
@@ -32,13 +33,13 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   selectedAnswer,
   onAnswerSelect,
   onClearAnswer,
+  isBookmarked = false,
+  onToggleBookmark,
   className
 }) => {
   const { language, t } = useLanguage();
-  const { toggleBookmark, bookmarkedQuestions } = useTest();
   const [showSolution, setShowSolution] = useState(false);
   
-  const isBookmarked = bookmarkedQuestions.includes(question.id);
   const isAnswered = selectedAnswer !== undefined;
 
   const getSubjectColor = (subject: string) => {
@@ -105,21 +106,23 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
               <Award className="h-3 w-3" />
               <span>{question.marks}</span>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => toggleBookmark(question.id)}
-              className={cn(
-                "h-8 w-8 p-0 transition-colors",
-                isBookmarked && "text-warning hover:text-warning/80"
-              )}
-            >
-              {isBookmarked ? (
-                <BookmarkCheck className="h-4 w-4" />
-              ) : (
-                <Bookmark className="h-4 w-4" />
-              )}
-            </Button>
+            {onToggleBookmark && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onToggleBookmark}
+                className={cn(
+                  "h-8 w-8 p-0 transition-colors",
+                  isBookmarked && "text-warning hover:text-warning/80"
+                )}
+              >
+                {isBookmarked ? (
+                  <BookmarkCheck className="h-4 w-4" />
+                ) : (
+                  <Bookmark className="h-4 w-4" />
+                )}
+              </Button>
+            )}
           </div>
         </div>
         
