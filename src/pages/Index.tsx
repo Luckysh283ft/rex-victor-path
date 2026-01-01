@@ -3,6 +3,7 @@ import { Header } from '@/components/layout/Header';
 import { MockTestEngine } from '@/components/test/MockTestEngine';
 import { ProgressDashboard } from '@/components/dashboard/ProgressDashboard';
 import { OfflineAITutor } from '@/components/ai/OfflineAITutor';
+import { QuickRevisionMode } from '@/components/revision/QuickRevisionMode';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -13,7 +14,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Trophy, BookOpen, Clock, TrendingUp, Star, Zap, Play, Brain, BarChart3, Settings, FileText, Target } from 'lucide-react';
 
 const Index = () => {
-  const [currentView, setCurrentView] = useState<'home' | 'test' | 'progress' | 'tutor'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'test' | 'progress' | 'tutor' | 'revision'>('home');
   const [selectedPaper, setSelectedPaper] = useState<number | null>(null);
   const [testQuestions, setTestQuestions] = useState<Question[]>([]);
   const [showSettings, setShowSettings] = useState(false);
@@ -79,7 +80,10 @@ const Index = () => {
     );
   }
 
-  // AI Tutor view
+  // Revision view
+  if (currentView === 'revision') {
+    return <QuickRevisionMode onBack={() => setCurrentView('home')} />;
+  }
   if (currentView === 'tutor') {
     return (
       <div className="min-h-screen bg-gradient-hero">
@@ -216,6 +220,15 @@ const Index = () => {
           >
             <Brain className="h-6 w-6" />
             <span>AI शिक्षक</span>
+          </Button>
+          
+          <Button
+            onClick={() => setCurrentView('revision')}
+            className="h-20 flex-col gap-2 bg-gradient-to-r from-warning/20 to-orange-500/20 hover:from-warning/30 hover:to-orange-500/30 border-warning/30"
+            variant="outline"
+          >
+            <Zap className="h-6 w-6 text-warning" />
+            <span>त्वरित संशोधन</span>
           </Button>
           
           <Button
